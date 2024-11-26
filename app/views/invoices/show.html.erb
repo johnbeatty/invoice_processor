@@ -1,12 +1,19 @@
 <h1>Process Invoice</h1>
-<% if @invoice.booking_id.nil? %>
-  <%= form_with model: @invoice do |form| %>
+<%= form_with model: @invoice do |form| %>
+  <% if @invoice.booking_id.nil? %>
     <div class="container ">
+      <div class="d-flex sm-text mb-3 justify-content-evenly">
+        <div class="p-2 text-primary"><span class="text-light bg-primary p-2 rounded-circle w-2 h-2 me-2">&nbsp;1&nbsp;</span>Connect Booking Item</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle  p-2 rounded-circle w-2 h-2 me-2">&nbsp;2&nbsp;</span>Verify Booking Item</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;3&nbsp;</span>Verify Cost Coverage</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;4&nbsp;</span>Add Invoice Details</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;5&nbsp;</span>Connect Charges</div>
+      </div>
       <div class="row align-items-start">
-        <div class="col-8 text-center">
+        <div class="col-7 text-center">
           <%= image_tag @invoice.file.preview(resize_to_limit: [2550, 3300]), class: "img-thumbnail img-fluid mx-auto" %>
         </div>
-        <div class="col-4">
+        <div class="col-5">
           <div class="container">
             <div class="alert alert-primary">
               <h5>Connect the correct booking item ID</h5>
@@ -36,17 +43,86 @@
         </div>
       </footer>
     </div>
-  <% end %>
-<% else %>
-  <div class="container text-center">
-    <div class="row align-items-start">
-      <div class="col-9">
-        <%= @invoice.file %>
+  <% else %>
+    <div class="container ">
+      <div class="d-flex sm-text mb-3 justify-content-evenly">
+        <div class="p-2"><span class="text-light bg-success p-2 rounded-circle w-2 h-2 me-2">&nbsp;1&nbsp;</span>Connect Booking Item</div>
+        <div class="p-2 text-primary"><span class="text-light bg-primary p-2 rounded-circle w-2 h-2 me-2">&nbsp;2&nbsp;</span>Verify Booking Item</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;3&nbsp;</span>Verify Cost Coverage</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;4&nbsp;</span>Add Invoice Details</div>
+        <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;5&nbsp;</span>Connect Charges</div>
       </div>
-      <div class="col-3">
-        <div class="container">
+      <div class="row align-items-start">
+        <div class="col-7 text-center">
+          <%= image_tag @invoice.file.preview(resize_to_limit: [2550, 3300]), class: "img-thumbnail img-fluid mx-auto" %>
+        </div>
+        <div class="col-5">
+          <div class="container">
+            <div class="alert alert-primary">
+              <h5>Verify the booking</h5>
+              <p>Please make sure all the following information is correctly shown on the received invoice</p>
+            </div>
+            <div class="card mb-3" >
+              <div class="card-body">
+                <h5 class="card-title d-flex">Location Invoicing Company</h5>
+                <div class="form-check form-switch">
+                  <%= form.checkbox :invoicing_in_germany, class: "form-check-input" %>
+                  <%= form.label :invoicing_in_germany, "The invoicing company also resides in Germany", class: "form-check-label" %>
+                </div>
+              </div>
+            </div>
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title d-flex">Booking Information</h5>
+                <div class="card-body">
+                  <div class="row gy-2">
+                    <div class="col-6">
+                      Name of Hotel
+                    </div>
+                    <div class="col-6 text-end">
+                      <%= @invoice.booking.hotel_name %>
+                    </div>
+                    <div class="col-6">
+                      Name of First Traveller
+                    </div>
+                    <div class="col-6 text-end">
+                      <%= @invoice.booking.traveller_name %>
+                    </div>
+                    <div class="col-6">
+                      Check-in date
+                    </div>
+                    <div class="col-6 text-end">
+                      <%= @invoice.booking.checkin.strftime("%d.%m.%Y") %>
+                    </div>
+                    <div class="col-6">
+                      Check-out date
+                    </div>
+                    <div class="col-6 text-end">
+                      <%= @invoice.booking.checkout.strftime("%d.%m.%Y") %>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-white">
+                  <div class="form-check">
+                    <%= form.checkbox :booking_correct, class: "form-check-input" %>
+                    <%= form.label :booking_correct, "All information above is correctly shown on invoice", class: "form-check-label" %>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <footer class="footer mt-auto py-3">
+      <div class="container d-flex justify-content-between">
+        <%= form_with model: @invoice do |delete_form| %>
+          <%= delete_form.hidden_field :booking_id, value: "" %>
+          <%= delete_form.submit "Previous", class: "btn btn-light" %>
+        <% end %>
+        <%= form.submit "Go to Next Step", class: "btn btn-primary" %>
+      </div>
+    </footer>
   </div>
+<% end %>
 <% end %>

@@ -12,7 +12,7 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.create invoice_params
     respond_to do |format|
-      format.html { redirect_to invoice_path(invoice) }
+      format.html { redirect_to invoice_path(@invoice) }
     end
   end
 
