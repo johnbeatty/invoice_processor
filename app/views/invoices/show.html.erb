@@ -1,0 +1,52 @@
+<h1>Process Invoice</h1>
+<% if @invoice.booking_id.nil? %>
+  <%= form_with model: @invoice do |form| %>
+    <div class="container ">
+      <div class="row align-items-start">
+        <div class="col-8 text-center">
+          <%= image_tag @invoice.file.preview(resize_to_limit: [2550, 3300]), class: "img-thumbnail img-fluid mx-auto" %>
+        </div>
+        <div class="col-4">
+          <div class="container">
+            <div class="alert alert-primary">
+              <h5>Connect the correct booking item ID</h5>
+              <p>Please lorem ipsum dolor sit amet...</p>
+            </div>
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title d-flex">Connect Booking
+                  <small class="mx-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-secondary fs-6 h-100">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                    </svg>
+                  </small>
+                </h5>
+                <%= form.combobox "booking_id", combobox_options( Booking.all, value: :to_combobox_id, render_in: { partial: "bookings/booking_option" }) do |combobox| %>
+                  <% combobox.customize_fieldset class: "form-control" %>
+                  <% combobox.customize_main_wrapper class: "w-100" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer mt-auto py-3">
+        <div class="container d-flex flex-row-reverse">
+          <%= form.submit "Go to Next Step", class: "btn btn-primary" %>
+        </div>
+      </footer>
+    </div>
+  <% end %>
+<% else %>
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col-9">
+        <%= @invoice.file %>
+      </div>
+      <div class="col-3">
+        <div class="container">
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

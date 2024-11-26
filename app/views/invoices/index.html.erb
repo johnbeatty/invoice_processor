@@ -1,10 +1,33 @@
+<%= render "header" %>
 <div class="container text-center">
   <div class="row align-items-start">
     <div class="col-9">
-      column - 9
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @invoices.each do |invoice| %>
+            <tr>
+              <td><%= link_to "Show", invoice_path(invoice) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class="col-3">
-      column - 3
+      <div class="container">
+        <h3>Upload Invoice</h3>
+        <%= form_with model: @invoice do |form| %>
+          <div class="mb-3">
+            <%= form.label :file, class: "form-label" %>
+            <%= form.file_field :file, class: "form-control" %>
+          </div>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
