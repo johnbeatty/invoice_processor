@@ -20,7 +20,13 @@ class InvoicesController < ApplicationController
     @invoice.update attach_booking_params
     @invoice.save
     respond_to do |format|
-      format.html { redirect_to invoice_path(@invoice) }
+      format.html do
+        if @invoice.booking_id.nil?
+          redirect_to invoice_path(@invoice)
+        else
+          redirect_to invoice_booking_path(@invoice, @invoice.booking)
+        end
+      end
     end
   end
 

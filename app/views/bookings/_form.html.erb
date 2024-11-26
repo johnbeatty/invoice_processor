@@ -1,0 +1,53 @@
+<%= form_with model: @booking do |form| %>
+  <h2>Booking information</h2>
+  <div class="mb-3">
+    <%= form.label :booking_code, class: "form-label" %>
+    <%= form.text_field :booking_code, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :hotel_name, class: "form-label" %>
+    <%= form.text_field :hotel_name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :traveller_name, class: "form-label" %>
+    <%= form.text_field :traveller_name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :checkin, class: "form-label" %>
+    <%= form.text_field :checkin, class: "form-control", type: "date", value: form.object.checkin.nil? ? "" : form.object.checkin.strftime("%Y-%m-%d") %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :checkout, class: "form-label" %>
+    <%= form.text_field :checkout, class: "form-control", type: "date", value: form.object.checkout.nil? ? "" : form.object.checkout.strftime("%Y-%m-%d") %>
+  </div>
+  <h2>Receiving Company</h2>
+  <div class="mb-3">
+    <%= form.label :name_of_company, class: "form-label" %>
+    <%= form.text_field :name_of_company, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :additional_address_information, class: "form-label" %>
+    <%= form.text_field :additional_address_information, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :street_name, class: "form-label" %>
+    <%= form.text_field :street_name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :street_number, class: "form-label" %>
+    <%= form.text_field :street_number, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :postal_code, class: "form-label" %>
+    <%= form.text_field :postal_code, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :city, class: "form-label" %>
+    <%= form.text_field :city, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :country, class: "form-label" %>
+    <%= form.text_field :country, class: "form-control" %>
+  </div>
+  <%= form.submit "Save", class: "btn btn-primary" %>
+<% end %>

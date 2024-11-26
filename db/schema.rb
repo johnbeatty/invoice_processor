@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_26_141905) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_26_191150) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,16 +47,43 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_26_141905) do
     t.datetime "checkout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_of_company"
+    t.string "additional_address_information"
+    t.string "street_name"
+    t.string "street_number"
+    t.string "postal_code"
+    t.string "city"
+    t.string "country"
   end
 
   create_table "invoices", force: :cascade do |t|
     t.integer "booking_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "booking_correct"
+    t.boolean "receiving_correct"
+    t.boolean "invoicing_in_germany"
     t.index ["booking_id"], name: "index_invoices_on_booking_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.string "name_of_traveler"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "description"
+    t.string "category"
+    t.integer "quantity"
+    t.integer "price_cents"
+    t.string "price_currency"
+    t.float "vat_rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_line_items_on_invoice_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "invoices", "bookings"
+  add_foreign_key "line_items", "invoices"
 end

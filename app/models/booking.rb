@@ -4,6 +4,6 @@ class Booking < ApplicationRecord
   end
 
   def to_combobox_id
-    id.to_s
+    id
   end
 end

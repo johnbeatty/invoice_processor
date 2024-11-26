@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  resources :bookings
-  resources :invoices
+  resources :bookings, only: [:index, :new, :create, :edit, :update]
+  resources :invoices do
+    resources :bookings, only: [:show, :update]
+    resources :line_items
+  end
 
   # Defines the root path route ("/")
   root "invoices#index"

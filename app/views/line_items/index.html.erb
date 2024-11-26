@@ -1,5 +1,5 @@
 <h1>Process Invoice</h1>
-<%= form_with model: @invoice do |form| %>
+<%= form_with model: [@invoice], url: invoice_line_items_path do |form| %>
   <div class="container ">
     <div class="d-flex sm-text mb-3 justify-content-evenly">
       <div class="p-2 text-primary"><span class="text-light bg-primary p-2 rounded-circle w-2 h-2 me-2">&nbsp;1&nbsp;</span>Connect Booking Item</div>
