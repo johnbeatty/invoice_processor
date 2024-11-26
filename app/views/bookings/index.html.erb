@@ -1,0 +1,23 @@
+<%= render "header" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Booking Code</th>
+      <th>Hotel</th>
+      <th>Traveller</th>
+      <th>Checkin</th>
+      <th>Checkout</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= booking.booking_code %></td>
+        <td><%= booking.hotel_name %></td>
+        <td><%= booking.traveller_name %></td>
+        <td><%= booking.checkin.strftime("%b %d, %Y") %></td>
+        <td><%= booking.checkout.strftime("%b %d, %Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

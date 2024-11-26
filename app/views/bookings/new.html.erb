@@ -1,0 +1,26 @@
+<%= render "header" %>
+<div class="container">
+  <%= form_with model: @booking do |form| %>
+    <div class="mb-3">
+      <%= form.label :booking_code, class: "form-label" %>
+      <%= form.text_field :booking_code, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :hotel_name, class: "form-label" %>
+      <%= form.text_field :hotel_name, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :traveller_name, class: "form-label" %>
+      <%= form.text_field :traveller_name, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :checkin, class: "form-label" %>
+      <%= form.text_field :checkin, class: "form-control", type: "date" %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :checkout, class: "form-label" %>
+      <%= form.text_field :checkout, class: "form-control", type: "date" %>
+    </div>
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  <% end %>
+</div>
