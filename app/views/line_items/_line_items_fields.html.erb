@@ -1,0 +1,58 @@
+<%= content_tag :div, class: "nested-fields card", data: { new_record: form.object.new_record? } do %>
+  <div class="card-body">
+    <h5 class="card-title d-flex">Line Item</h5>
+    <div class="mb-3">
+      <%= form.label :name_of_traveler, class: "form-label" %>
+      <%= form.text_field :name_of_traveler, class: "form-control" %>
+    </div>
+    <div class="row">
+      <div class="mb-3 col-6">
+        <%= form.label :start_date, class: "form-label" %>
+        <%= form.text_field :start_date, type: "date", value: form.object.start_date.nil? ? "" : form.object.start_date.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+      <div class="mb-3 col-6">
+        <%= form.label :end_date, class: "form-label" %>
+        <%= form.text_field :end_date, type: "date", value: form.object.end_date.nil? ? "" : form.object.end_date.strftime("%Y-%m-%d"), class: "form-control" %>
+      </div>
+    </div>
+    <div class="mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_field :description, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :category, class: "form-label" %>
+      <%= form.combobox "category", ["Important", "Miscellaneous", "Frivolous"] do |combobox| %>
+        <% combobox.customize_fieldset class: "form-control" %>
+        <% combobox.customize_main_wrapper class: "w-100" %>
+      <% end %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :quantity, class: "form-label" %>
+      <%= form.text_field :quantity, class: "form-control" %>
+    </div>
+    <div class="row">
+      <div class="mb-3 col-3">
+        <%= form.label :price_currency, "Unit Price", class: "form-label" %>
+        <%= form.combobox "price_currency", ["EUR", "USD", "CAD"] do |combobox| %>
+          <% combobox.customize_fieldset class: "form-control" %>
+          <% combobox.customize_main_wrapper class: "w-100" %>
+        <% end %>
+      </div>
+      <div class="mb-3 col-6">
+        <%= form.label :price, "", class: "form-label" %>
+        <%= form.text_field :price, class: "form-control" %>
+      </div>
+      <div class="mb-3 col-3">
+        <%= form.label :vat_rate, "VAT rate", class: "form-label" %>
+        <%= form.combobox "vat_rate", [["Incl 19%", ".19" ],] do |combobox| %>
+          <% combobox.customize_fieldset class: "form-control" %>
+          <% combobox.customize_main_wrapper class: "w-100" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association" } %>
+  </div>
+  <%= form.hidden_field :_destroy %>
+<% end %>

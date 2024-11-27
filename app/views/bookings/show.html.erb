@@ -126,7 +126,6 @@
     <footer class="footer mt-auto py-3">
       <div class="container d-flex justify-content-between">
         <%= link_to "Previous", invoice_path(@invoice), class: "btn btn-light" %>
-        <%= form.hidden_field :booking_id, value: @invoice.booking_id %>
         <%= form.submit "Go to Next Step", class: "btn btn-primary" %>
       </div>
     </footer>

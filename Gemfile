@@ -67,3 +67,4 @@ gem "bootstrap", "~> 5.3.3"
 gem "dartsass-rails", "~> 0.5.1"
 
 gem "hotwire_combobox"
+gem "money-rails"

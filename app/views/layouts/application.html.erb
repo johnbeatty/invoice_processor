@@ -42,6 +42,18 @@
     </nav>
     <main class="flex-shrink-0">
       <div class="container">
+        <div id="flash">
+          <% if notice %>
+            <div class="alert alert-primary" role="alert">
+              <%= notice %>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-info" role="alert">
+              <%= alert %>
+            </div>
+          <% end %>
+        </div>
         <%= yield %>
       </div>
     </main>

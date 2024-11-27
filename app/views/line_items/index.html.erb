@@ -1,44 +1,92 @@
 <h1>Process Invoice</h1>
-<%= form_with model: [@invoice], url: invoice_line_items_path do |form| %>
+<%= form_with model: [@invoice], url: invoice_line_items_path, method: "POST" do |form| %>
   <div class="container ">
     <div class="d-flex sm-text mb-3 justify-content-evenly">
-      <div class="p-2 text-primary"><span class="text-light bg-primary p-2 rounded-circle w-2 h-2 me-2">&nbsp;1&nbsp;</span>Connect Booking Item</div>
-      <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle  p-2 rounded-circle w-2 h-2 me-2">&nbsp;2&nbsp;</span>Verify Booking Item</div>
-      <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;3&nbsp;</span>Verify Cost Coverage</div>
-      <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;4&nbsp;</span>Add Invoice Details</div>
+      <div class="p-2"><span class="text-light bg-success p-2 rounded-circle w-2 h-2 me-2">&nbsp;1&nbsp;</span>Connect Booking Item</div>
+      <div class="p-2"><span class="text-light bg-success p-2 rounded-circle w-2 h-2 me-2">&nbsp;2&nbsp;</span>Verify Booking Item</div>
+      <div class="p-2"><span class="text-light bg-success p-2 rounded-circle w-2 h-2 me-2">&nbsp;3&nbsp;</span>Verify Cost Coverage</div>
+      <div class="p-2 text-secondary"><span class="text-light bg-primary p-2 rounded-circle w-2 h-2 me-2">&nbsp;4&nbsp;</span>Add Invoice Details</div>
       <div class="p-2 text-secondary"><span class="text-light bg-secondary-subtle p-2 rounded-circle w-2 h-2 me-2">&nbsp;5&nbsp;</span>Connect Charges</div>
     </div>
     <div class="row align-items-start">
       <div class="col-7 text-center">
         <%= image_tag @invoice.file.preview(resize_to_limit: [2550, 3300]), class: "img-thumbnail img-fluid mx-auto" %>
-        <p class="text-primary">This is not an invoice</p>
       </div>
       <div class="col-5">
         <div class="container">
           <div class="alert alert-primary">
-            <h5>Connect the correct booking item ID</h5>
-            <p>Please lorem ipsum dolor sit amet...</p>
+            <h5>Add additional invoice details</h5>
+            <p>Please transfer all needed invoice information lorem ipsum dolor sit amet...</p>
           </div>
-          <div class="card" >
+          <div class="card mb-3" >
             <div class="card-body">
-              <h5 class="card-title d-flex">Connect Booking
-                <small class="mx-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-secondary fs-6 h-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                  </svg>
-                </small>
-              </h5>
-              <%= form.combobox "booking_id", combobox_options( Booking.all, value: :to_combobox_id, render_in: { partial: "bookings/booking_option" }) do |combobox| %>
-                <% combobox.customize_fieldset class: "form-control" %>
-                <% combobox.customize_main_wrapper class: "w-100" %>
+              <h5 class="card-title d-flex">Invoicing Company</h5>
+              <div class="mb-3">
+                <%= form.label :country, class: "form-label" %>
+                <%= form.combobox "country", ["Canada", "USA", "Germany", "UK"] do |combobox| %>
+                  <% combobox.customize_fieldset class: "form-control" %>
+                  <% combobox.customize_main_wrapper class: "w-100" %>
+                <% end %>
+              </div>
+              <div class="mb-3">
+                <%= form.label :vat_id, "VAT ID or tax-number", class: "form-label" %>
+                <%= form.text_field :vat_id, class: "form-control" %>
+              </div>
+              <div class="mb-3">
+                <%= form.label :company_name, class: "form-label" %>
+                <%= form.text_field :company_name, class: "form-control" %>
+              </div>
+              <div class="mb-3">
+                <%= form.label :invoice_date, class: "form-label" %>
+                <%= form.text_field :invoice_date, class: "form-control", type: "date", value: form.object.invoice_date.nil? ? "" : form.object.invoice_date.strftime("%Y-%m-%d") %>
+              </div>
+              <div class="mb-3">
+                <%= form.label :invoice_number, class: "form-label" %>
+                <%= form.text_field :invoice_number, class: "form-control" %>
+              </div>
+              <div class="row g-3">
+                <div class="col-8 mb-3 ">
+                  <%= form.label :street_name, class: "form-label" %>
+                  <%= form.text_field :street_name, class: "form-control" %>
+                </div>
+                <div class="col-4 mb-3">
+                  <%= form.label :street_number, class: "form-label" %>
+                  <%= form.text_field :street_number, class: "form-control" %>
+                </div>
+                <div class="col-4 mb-3 ">
+                  <%= form.label :postal_code, class: "form-label" %>
+                  <%= form.text_field :postal_code, class: "form-control" %>
+                </div>
+                <div class="col-8 mb-3">
+                  <%= form.label :city, class: "form-label" %>
+                  <%= form.text_field :city, class: "form-control" %>
+                </div>
+              </div>
+              <div class="form-check">
+                <%= form.checkbox :invoice_has_invoice,  class: "form-check-input" %>
+                <%= form.label :invoice_has_invoice, "The invoice has the word 'invoice' on it", class: "form-check-label" %>
+              </div>
+            </div>
+          </div>
+          <div data-controller="nested-form"  data-nested-form-index-value="NEW_RECORD">
+            <template data-nested-form-target="template">
+              <%= form.fields_for :line_items, LineItem.new, child_index: 'NEW_RECORD' do |line_item| %>
+                <%= render "line_items_fields", form: line_item %>
               <% end %>
+            </template>
+            <%= form.fields_for :line_items do |line_item| %>
+              <%= render "line_items_fields", form: line_item %>
+            <% end %>
+            <div data-nested-form-target="links">
+              <%= link_to "Add Line Item", "#", class: "btn btn-secondary", data: { action: "click->nested-form#add_association" } %>
             </div>
           </div>
         </div>
       </div>
     </div>
     <footer class="footer mt-auto py-3">
-      <div class="container d-flex flex-row-reverse">
+      <div class="container d-flex justify-content-between">
+        <%= link_to "Previous", invoice_booking_path(@invoice, @invoice.booking), class: "btn btn-light" %>
         <%= form.submit "Go to Next Step", class: "btn btn-primary" %>
       </div>
     </footer>

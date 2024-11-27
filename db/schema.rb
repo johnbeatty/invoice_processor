@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_26_191150) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_26_195421) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -63,6 +63,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_26_191150) do
     t.boolean "booking_correct"
     t.boolean "receiving_correct"
     t.boolean "invoicing_in_germany"
+    t.string "country"
+    t.string "vat_id"
+    t.string "company_name"
+    t.datetime "invoice_date"
+    t.string "invoice_number"
+    t.string "street_name"
+    t.string "street_number"
+    t.string "postal_code"
+    t.string "city"
+    t.boolean "invoice_has_invoice"
     t.index ["booking_id"], name: "index_invoices_on_booking_id"
   end
 
